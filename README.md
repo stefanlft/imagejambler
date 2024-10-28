@@ -26,6 +26,7 @@ Install my-project with npm
 ./ImageJambler photo.jpeg 70
 # where 70 is the protection factor. keep in mind the greater the factor
 # the worst the quality of the output file.
+# if not provided, the protection factor will default to 30%
 ```
 
 
