@@ -35,6 +35,9 @@ Install my-project with npm
 - Adding other protection techniques
 - Better, more intuitive CLI
 - Autocompletion tool
+## Note
+
+Try avoiding over/under expousure, as it will now destroy parts of the photo
 ## Authors
 
 - [@stefanlft](https://www.github.com/stefanlft)
