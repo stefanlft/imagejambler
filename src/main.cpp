@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
     // Get noise grade
     double factor = 0.3;
     if (argc >= 3) {
-        factor = (std::stoi(std::string(argv[2]))) / 100;
+        factor = (std::stoi(std::string(argv[2]))) / 100.0;
     }
 
     // Read image data
@@ -46,6 +46,6 @@ int main(int argc, char** argv) {
     // Display the resized (or original) image
     cv::imshow("Jumbled  Image (Fitted to Screen)", resizeForScreen(image, 800, 600));
     cv::imshow("Original Image (Fitted to Screen)", resizeForScreen(original, 800, 600));
-    cv::waitKey(0);
+    while (cv::waitKey(0) != 'q');
     return 0;
 }

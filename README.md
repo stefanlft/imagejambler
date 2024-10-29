@@ -32,9 +32,21 @@ Install my-project with npm
 
 ## Roadmap
 
-- Adding other protection techniques
-- Better, more intuitive CLI
-- Autocompletion tool
+- [ ]  Adding other protection techniques
+  - [ ]  Color Manipulation
+    - [x]  Color Shifting
+    - [x]  WhiteBalance Shifting
+    - [ ]  Contrast & Brightness Shifting
+  - [x]  Gaussian Blur
+  - [x]  Median Blur
+  - [x]  Noise
+  - [ ]  Lens Distorsion
+  - [ ]  Histogram Equalization
+  - [ ]  Texture Scrambling
+  - [ ]  Change Compression Settings
+  - [ ]  Resize and Crop
+- [ ]  Better, more intuitive CLI
+- [ ]  Autocompletion tool
 ## Note
 
 Try avoiding over/under expousure, as it will now destroy parts of the photo
