@@ -1,5 +1,6 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <randomizer.hpp>
 #include <image_jambler.hpp>
 
 cv::Mat resizeForScreen(cv::Mat &image, int maxWidth, int maxHeight) {
@@ -41,11 +42,25 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    Randomizer rnd;
+
     jambleImage(image, factor);
 
     // Display the resized (or original) image
     cv::imshow("Jumbled  Image (Fitted to Screen)", resizeForScreen(image, 800, 600));
     cv::imshow("Original Image (Fitted to Screen)", resizeForScreen(original, 800, 600));
-    while (cv::waitKey(0) != 'q');
+    while (int key = cv::waitKey(0)) {
+        if (key == 'q') {
+            break;
+        } else if (key == 's') {
+            cv::imwrite("jambled_"+imagePath+".jpg", image, {
+                cv::IMWRITE_JPEG_QUALITY, rnd.getNextInt(100),
+                cv::IMWRITE_JPEG_OPTIMIZE, rnd.getNextInt(1),
+                cv::IMWRITE_JPEG_PROGRESSIVE, rnd.getNextInt(1)
+            });
+        }
+    }
+
+    cv::destroyAllWindows();
     return 0;
 }

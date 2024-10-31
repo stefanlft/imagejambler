@@ -32,19 +32,18 @@ Install my-project with npm
 
 ## Roadmap
 
-- [ ]  Adding other protection techniques
-  - [ ]  Color Manipulation
+- [x]  Adding other protection techniques
+  - [x]  Color Manipulation
     - [x]  Color Shifting
     - [x]  WhiteBalance Shifting
-    - [ ]  Contrast & Brightness Shifting
+    - [x]  Contrast & Brightness Shifting // sucks
   - [x]  Gaussian Blur
   - [x]  Median Blur
   - [x]  Noise
-  - [ ]  Lens Distorsion
-  - [ ]  Histogram Equalization
-  - [ ]  Texture Scrambling
-  - [ ]  Change Compression Settings
-  - [ ]  Resize and Crop
+  - [x]  Histogram Equalization
+  - [x]  Texture Scrambling
+  - [x]  Change Compression Settings
+  - [x]  Resize and Crop
 - [ ]  Better, more intuitive CLI
 - [ ]  Autocompletion tool
 ## Note
