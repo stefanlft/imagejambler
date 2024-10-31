@@ -10,6 +10,7 @@ private:
     
 public:
     Randomizer() : generator(rd()) { }
+    ~Randomizer() { }
 
     int getNextInt();
     int getNextInt(int max);
@@ -18,4 +19,6 @@ public:
     double getNextReal();
     double getNextReal(double max);
     double getNextReal(double min, double max);
+
+    void random3D(std::vector<std::vector<std::pair<int, int>>> &vec, const int height, const int width, const int min, const int max);
 };
