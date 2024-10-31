@@ -65,7 +65,7 @@ void wbShift(cv::Mat &image, double factor, Randomizer &rnd) {
 }
 
 void brightnessContrastShift(cv::Mat &image, double factor, Randomizer &rnd) {
-    double alpha = rnd.getNextReal(1.0+factor);
+    double alpha = rnd.getNextReal(1, 1+factor/4.0);
     int beta = rnd.getNextInt(factor*50);
 
     image.convertTo(image, -1, alpha, beta);
@@ -74,13 +74,10 @@ void brightnessContrastShift(cv::Mat &image, double factor, Randomizer &rnd) {
 
     cv::Mat lookUpTable(1, 256, CV_8U);
     uchar* p = lookUpTable.ptr();
-    double gamma_ = 1.0-factor/2.0;
+    double gamma_ = 1.0+factor*2.0;
     for( int i = 0; i < 256; ++i)
         p[i] = cv::saturate_cast<uchar>(pow(i / 255.0, gamma_) * 255.0);
-    cv::Mat res = image.clone();
-    cv::LUT(image, lookUpTable, res);
-    image = res;
-
+    cv::LUT(image, lookUpTable, image);
 }
 
 void colorManipulation(cv::Mat &image, double factor, Randomizer &rnd) {
@@ -140,7 +137,7 @@ void cropAndRotate(cv::Mat &image, double factor, Randomizer &rnd) {
     warpAffine(image, image, rotation_matrix, image.size());
 
     // crop
-    int cropFactor = 200;
+    int cropFactor = 100;
     image = image(cv::Range(rnd.getNextInt(factor*cropFactor), image.rows-rnd.getNextInt(factor*cropFactor)),
                   cv::Range(rnd.getNextInt(factor*cropFactor), image.cols-rnd.getNextInt(factor*cropFactor)));
 }
