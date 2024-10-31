@@ -20,20 +20,47 @@ cv::Mat resizeForScreen(cv::Mat &image, int maxWidth, int maxHeight) {
     return resizedImage;
 }
 
+std::string changeExtension(const std::string& filePath, const std::string& newExtension) {
+    // Find the last dot in the filename
+    size_t dotIndex = filePath.find_last_of(".");
+    if (dotIndex != std::string::npos) {
+        // Return the file path with the new extension
+        return filePath.substr(0, dotIndex) + newExtension;
+    }
+    // If no dot is found, append the new extension
+    return filePath + newExtension;
+}
+
+
 int main(int argc, char** argv) {
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <image_path> <factor: default 30>" << std::endl;
+    const cv::String keys =
+        "{help h usage ? |      | print this message   }"
+        "{@image         |      | image to be jambled  (required) }"
+        "{factor         |  30  | factor of protection (optional) }"
+        ;
+    cv::CommandLineParser parser(argc, argv, keys);
+    parser.about("ImageJambler v1.0.0");
+    if (parser.has("help")) {
+        parser.printMessage();
+        return 0;
+    }
+
+    if (!parser.has("@image")) {
+        std::cerr << "Error: Required argument '@image' is missing." << std::endl;
+        std::cerr << "Run with --help." << std::endl;
         return 1;
     }
 
-    // Get noise grade
-    double factor = 0.3;
-    if (argc >= 3) {
-        factor = (std::stoi(std::string(argv[2]))) / 100.0;
+    if (!parser.check()) {
+        parser.printErrors();
+        return 0;
     }
 
+    // Get protec   tion grade
+    double factor = parser.get<int>("factor")/100.0;
+
     // Read image data
-    std::string imagePath = argv[1];
+    std::string imagePath = parser.get<std::string>("@image");
     cv::Mat image = cv::imread(imagePath);
     cv::Mat original = image.clone();
 
@@ -41,6 +68,7 @@ int main(int argc, char** argv) {
         std::cerr << "Error: Could not open or find the image!" << std::endl;
         return 1;
     }
+
 
     Randomizer rnd;
 
@@ -53,7 +81,7 @@ int main(int argc, char** argv) {
         if (key == 'q') {
             break;
         } else if (key == 's') {
-            cv::imwrite("jambled_"+imagePath+".jpg", image, {
+            cv::imwrite(changeExtension("jambled_"+imagePath,".jpg"), image, {
                 cv::IMWRITE_JPEG_QUALITY, rnd.getNextInt(100),
                 cv::IMWRITE_JPEG_OPTIMIZE, rnd.getNextInt(1),
                 cv::IMWRITE_JPEG_PROGRESSIVE, rnd.getNextInt(1)
